@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="animate.css">
+    <style type="text/css">
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            background: url('https://jwc9.jwc.in.th/img/bg/blue.png');
+            overflow: hidden;
+            padding: 60px;
+            padding-top: 120px;
+        }
+        img{
+            max-width: 100%;
+        }
+
+        /*********************************/
+        /* FLIP 3D
+        /*********************************/
+
+        @keyframes card_rotate {
+            0% {transform: rotateY(0deg); margin-left: 0px;}
+            10% {transform: rotateY(360deg); margin-left: -30px;}
+
+            20% {transform: rotateY(720deg); margin-left: 30px;}
+            25% {transform: rotateY(1080deg); margin-left: -30px;}
+
+            30% {transform: rotateY(1440deg); margin-left: 30px;}
+            33% {transform: rotateY(1800deg); margin-left: -30px;}
+
+            36% {transform: rotateY(2160deg); margin-left: 30px;}
+            39% {transform: rotateY(2520deg); margin-left: -30px;}
+
+            42% {transform: rotateY(2880deg); margin-left: 30px;}
+            44% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            46% {transform: rotateY(2880deg); margin-left: 30px;}
+            48% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            50% {transform: rotateY(2880deg); margin-left: 30px;}
+            56% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            60% {transform: rotateY(2880deg); margin-left: 30px;}
+            62% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            64% {transform: rotateY(2880deg); margin-left: 30px;}
+            66% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            68% {transform: rotateY(2880deg); margin-left: 30px;}
+            70% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            72% {transform: rotateY(2880deg); margin-left: 30px;}
+            76% {transform: rotateY(3240deg); margin-left: -30px;}
+
+            80% {transform: rotateY(3600deg); margin-left: 30px;}
+            85% {transform: rotateY(3960deg); margin-left: -30px;}
+
+            90% {transform: rotateY(4320deg); margin-left: 30px;}
+            100% {transform: rotateY(4680deg); margin-left: 0px;}
+        }
+
+        @keyframes cardShowUp {
+            from {transform: rotateY(0deg);}
+            to {transform: rotateY(360deg);}
+        }
+
+        .btn-game {
+            font-size: 40px;
+            background: #ee5d5f;
+            border-bottom: 10px solid #d7524e;
+            border-radius: 60px;
+            cursor: pointer;
+            max-width: 300px;
+            margin: auto;
+            font-weight: bold;
+            padding: 5px 15px;
+            color: #fff;
+            outline: none;
+            text-decoration: none;
+            text-align: center;
+            font-style: normal;
+            padding: 5px 50px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            transition: bottom 1s ease;
+        }
+
+        .btn-game:hover{
+            margin-top: 5px;
+            border-bottom-width: 5px;
+        }
+
+        .card_container{
+            animation: none;
+        }
+
+        .flip_container {
+        position: relative;
+        width: 180px;
+        height: 250px;
+        z-index: 10;
+        display: inline-block;
+        margin: 20px;
+        }
+        .flip_container:before{
+            content:     "";
+            display:     block;
+            padding-top: 100%; /* initial ratio of 1:1*/
+        }
+        .flip_container {
+        perspective: 1000px;
+        }
+        .flip_card {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transform-style: preserve-3d;
+        transition: all 0.6s linear;
+        }
+        .flip_container:hover .flip_card {
+        transform: rotateY(-180deg);
+        -webkit-transform: rotateY(-180deg);
+        }
+        .flip_card_rotating{
+            animation: card_rotate 30s linear infinite;
+        }
+        .face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .face.back {
+            height: 100%;
+            display: block;
+            transform: rotateY(180deg);
+            box-sizing: border-box;
+            text-align: center;
+            background-size: 100% 100% !important;
+        }
+
+        .back div{
+            height: 100%;
+            border-radius: 5px;
+            color: white;
+            padding: 20px;
+        }
+
+        .back div div{
+            background: rgba(245,245,245,0.95);
+            height: 100%;
+            border-radius: 5px;
+            color: black;
+            padding-top: 20px;
+            font-size: 15pt;
+        }
+
+        @media screen and (min-width: 1200px){
+            .back div div h3{
+                font-size: 16pt;
+            }
+            .back div div{
+                font-size: 12pt;
+            }
+        }
+
+        @media screen and (min-width: 1400px){
+            .back div div h3{
+                font-size: 20pt;
+            }
+            .back div div{
+                font-size: 15pt;
+            }
+        }
+
+        @media screen and (max-width: 750px){
+            .close-iframe{
+                position: fixed;
+                top: 80px;
+                left: auto;
+                right: 0;
+            }
+            .project-content h1{
+                margin-top: 40px;
+                font-size: 24pt;
+            }
+            .project-page-container{
+                padding: 0;
+                overflow: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+            .project-page{
+                padding: 0 15px;
+            }
+            header, article{
+                padding: 0 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    <div id="rotate" class="">
+        <div class="text-center">
+            <div id="card1" class="flip_container">
+                <div id="1" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/A.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <div id="card2" class="flip_container">
+                <div id="2" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/B.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <div id="card3" class="flip_container">
+                <div id="3" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/C.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <div id="card4" class="flip_container">
+                <div id="4" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/D.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <br>
+
+            <div id="card5" class="flip_container">
+                <div id="5" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/E.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <div id="card6" class="flip_container">
+                <div id="6" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/F.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+            <div id="card7" class="flip_container">
+                <div id="7" class="card_container flip_card" class="shadow">
+                    <div class="back face center">
+                        <img src="images/Back.png" alt="">
+                    </div>
+                    <div class="front face">
+                        <img src="images/G.png" alt="">
+                    </div>
+                </div>
+            </div><!-- END FLIP CONTAINER -->
+        </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 100px;">
+        <div class="btn-random btn-game" @click="random()">START</i>
+    </div>
+
+    <h1 class="text-center" v-if="completeRandom" style="font-size: 6.5rem; color: white;">Team {{ resultAlphabet }}</h1>
+    <h2 class="text-center" v-if="completeRandom" style="font-size: 2.4rem; color: white;">#WeAreHiring</h1>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.min.js"></script>
+    <script src="async.min.js"></script>
+    <script type="text/javascript">
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                result: null,
+                alphabets: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                resultAlphabet: '',
+                completeRandom: false,
+                hired: [], // int[]
+                timeout: [6000, 11000, 15000, 18000, 22000, 26000],
+            },
+            mounted () {
+                
+            },
+            methods: {
+                random () {
+                    $('#rotate').addClass('animated flip infinite')
+                    $('.btn-random').css('bottom', '-100px')
+
+                    $('.flip_card').addClass('flip_card_rotating')
+
+                    $('#card1').addClass('flip_container animated tada infinite')
+                    $('#card2').addClass('flip_container animated jello infinite')
+                    $('#card3').addClass('flip_container animated swing infinite')
+                    $('#card4').addClass('flip_container animated swing infinite')
+                    $('#card5').addClass('flip_container animated bounce infinite')
+                    $('#card6').addClass('flip_container animated jello infinite')
+                    $('#card7').addClass('flip_container animated tada infinite')
+
+                    for(i = 1; i <= this.hired.length; i++){
+                        $('#card'+this.hired[i-1]).css('display', 'none')
+                    }
+
+                    var audio = new Audio('rotating.mp4')
+                    audio.play()
+
+                    var numbers = []
+
+                    for(i=0; i<7; i++){
+                        var random = 0
+                        do{
+                            random = Math.floor((Math.random() * 7) + 1);
+                            duplicate = numbers.find(function(number){
+                                return number == random;
+                            });
+                        }while(duplicate);
+                        numbers.push(random)
+                    }
+                    console.log(numbers)
+
+                    // Loop หาว่ามีเลขไหนอยู่ใน numbers แล้ว ลบออก
+                    for(i = 0; i < this.hired.length; i++){
+                        var index = numbers.indexOf(this.hired[i])
+                        numbers.splice( index, 1 )
+                    }
+
+                    for(i = 0; i < numbers.length-1; i++){
+                        console.log(this.timeout[i])
+                        setTimeout( function() { 
+                            let num = numbers.pop()
+                            console.log(num)
+                            $( "#"+num ).fadeOut("slow");
+                        }, this.timeout[i]);
+                    }
+
+                    setTimeout( () => {
+                        this.result = numbers.pop()
+                        $( "#rotate" ).removeClass('animated').removeClass('flip')
+                        $( "#"+this.result ).parent().removeClass('animated')
+                                    .removeClass('flip')
+                                    .removeClass('tada')
+                                    .removeClass('jello')
+                                    .removeClass('swing')
+                                    .removeClass('bounce')
+                                    .removeClass('infinite')
+                        for(i=1; i<=7 ;i++){
+                            if(i == this.result)
+                                    continue
+                            $( "#"+i).parent().css('display', 'none')
+                        }              
+                        this.completeRandom = true
+                        this.resultAlphabet = this.alphabets[this.result-1]
+
+                        let element = $( "#"+this.result )
+                        $( "#"+this.result ).css('animation', 'none')   
+                        element.parent().css('width', '300px')
+                        element.parent().css('height', '450px')
+                        if(this.hired.length > 0)
+                            $('.flip_card').css('margin-left', '-155px')
+
+                        this.hired.push(this.result)
+                    }, 26800)
+
+                    setTimeout( () => {
+                        this.alphabets.indexOf(this.result)
+                        audio.pause()
+                        audio.currentTime = 0
+                        this.toWaitScreen()
+                    }, 38500)
+                },
+                toWaitScreen () {
+                    this.completeRandom = false
+                    $( "#"+i).parent().css('display', 'block')
+                    $('.btn-random').css('bottom', '100px')
+
+                    for(i=1; i<=7 ;i++){ 
+                        $( '#'+i ).parent().css('width', '180px')
+                        $( '#'+i ).parent().css('height', '250px')
+                        $( "#"+i ).parent().css('display', 'inline-block')
+                        $( "#"+i ).css('display', 'inline-block')
+                        $('.flip_card').removeClass('flip_card_rotating')
+                        $('.flip_card').css('margin-left', '-90px')
+                    }     
+                    for(i = 1; i <= this.hired.length; i++){
+                        $('#card'+this.hired[i-1]).css('display', 'none')
+                    }
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>
