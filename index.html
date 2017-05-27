@@ -296,6 +296,9 @@
     <h2 class="text-center" v-if="completeRandom" style="font-size: 2.4rem; color: white;">#WeAreHiring</h1>
     </div>
 
+    <audio id="audio-waiting" preload="auto" src="waiting.mp4"></audio>
+    <audio id="audio-random" preload="auto" src="rotating.mp4"></audio>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.min.js"></script>
     <script src="async.min.js"></script>
@@ -309,13 +312,30 @@
                 resultAlphabet: '',
                 completeRandom: false,
                 hired: [], // int[]
-                timeout: [6000, 11000, 15000, 18000, 22000, 26000],
+                timeout: [
+                    [6000, 11000, 15000, 18000, 22000, 26000],
+                    [6000, 12000, 17000, 21500, 26000],
+                    [6000, 13000, 20000, 26000],
+                    [8000, 16500, 26000],
+                    [13000, 26000],
+                    [24000],
+                ],
+                audioWaiting: Object,
+                audioRandom: Object,
             },
             mounted () {
-                
+                var waitingSong = document.getElementById('audio-waiting');
+                waitingSong.volume = 0.6
+                waitingSong.play()
             },
             methods: {
                 random () {
+                    var waitingSong = document.getElementById('audio-waiting');
+                    waitingSong.pause()
+                    var randomSong = document.getElementById('audio-random');
+                    randomSong.currentTime = 0
+                    randomSong.play()
+
                     $('#rotate').addClass('animated flip infinite')
                     $('.btn-random').css('bottom', '-100px')
 
@@ -332,9 +352,6 @@
                     for(i = 1; i <= this.hired.length; i++){
                         $('#card'+this.hired[i-1]).css('display', 'none')
                     }
-
-                    var audio = new Audio('rotating.mp4')
-                    audio.play()
 
                     var numbers = []
 
@@ -362,7 +379,7 @@
                             let num = numbers.pop()
                             console.log(num)
                             $( "#"+num ).fadeOut("slow");
-                        }, this.timeout[i]);
+                        }, this.timeout[this.hired.length][i]);
                     }
 
                     setTimeout( () => {
@@ -395,12 +412,17 @@
 
                     setTimeout( () => {
                         this.alphabets.indexOf(this.result)
-                        audio.pause()
-                        audio.currentTime = 0
                         this.toWaitScreen()
                     }, 38500)
                 },
                 toWaitScreen () {
+                    var randomSong = document.getElementById('audio-random');
+                    randomSong.pause()
+                    var waitingSong = document.getElementById('audio-waiting');
+                    waitingSong.currentTime = 0
+                    waitingSong.volume = 0.6
+                    waitingSong.play()
+
                     this.completeRandom = false
                     $( "#"+i).parent().css('display', 'block')
                     $('.btn-random').css('bottom', '100px')
@@ -416,7 +438,7 @@
                     for(i = 1; i <= this.hired.length; i++){
                         $('#card'+this.hired[i-1]).css('display', 'none')
                     }
-                }
+                },
             }
         })
         
